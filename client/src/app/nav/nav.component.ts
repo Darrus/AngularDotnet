@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AccountService } from '../services/account.service';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -12,15 +12,15 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './nav.component.css',
 })
 export class NavComponent {
+  accountService = inject(AccountService);
   model: any = {};
-  constructor(public accountService: AccountService) {}
 
   login() {
     this.accountService.login(this.model).subscribe({
-      next: (response) => {
+      next: response => {
         console.log(response);
       },
-      error: (error) => {
+      error: error => {
         console.error(error);
       },
     });
